@@ -12,7 +12,7 @@ const float PI = acos(-1);
 
 using namespace std;
 
-// Вывод конпекта
+// Процедура вывода теории
 // Пункт 0
 void theory() {
 
@@ -20,7 +20,7 @@ void theory() {
 
 // Процедура поиска угла наклона
 // Пункт 1
-void search_for_the_angular_coefficient() {
+double search_for_the_angular_coefficient(bool flag) {
 	cout << "Введите уравнение вида: ";
 	cout << "y = kx + b" << endl;
 
@@ -55,16 +55,24 @@ void search_for_the_angular_coefficient() {
 	tan_tmp = k / tmp;
 
 	cout << fixed << setprecision(3) << k << " / " << tmp << endl;
+
+	cout << "\nТангенс угла наклона к оси Ox: ";
 	cout << fixed << setprecision(3) << tan_tmp << endl;
 
-	cout << "Угол наклона к оси Ox: ";
-	atan_tmp = atan(tan_tmp) * 180 / PI;
-	cout << fixed << setprecision(3) << atan_tmp << endl;
+	if (flag) {
+		cout << "Угол наклона к оси Ox: ";
+		atan_tmp = atan(tan_tmp) * 180 / PI;
+		cout << fixed << setprecision(3) << atan_tmp << endl;
+	}
+	else {
+		return tan_tmp;
+	}
 
 	cout << endl;
+
 }
 
-// Составление уравнения прямой через одну некоторую точку
+// Процедура составления уравнения прямой через одну некоторую точку
 // Пункт 2
 void drawing_up_the_equation_one_point() {
 	/*
@@ -91,6 +99,8 @@ void drawing_up_the_equation_one_point() {
 	cout << endl;
 }
 
+// Процедура составления уравнения прямой через две некоторые точки
+// Пункт 3
 void drawing_up_the_equation_two_point() {
 	/*
 		x - x1    y - y1
@@ -139,6 +149,28 @@ void drawing_up_the_equation_two_point() {
 	cout << endl;
 }
 
+// Процедура нахождения угла между прямыми
+// Пункт 4
+void find_angle_between_straight_lines() {
+	/*			 k2 - k1
+		tg(a) = --------- , где k1 и k2 - угловые коэффициенты
+				1 + k1*k2
+		a - один из углов между прямыми
+			
+	*/
+
+	double tan_tmp, atan_tmp;
+	double k1 = search_for_the_angular_coefficient(false);
+	double k2 = search_for_the_angular_coefficient(false);
+
+	cout << "\nУгол между прямыми: ";
+	tan_tmp = abs((k2 - k1) / (1 + k1 * k2));
+	atan_tmp = atan(tan_tmp) * 180 / PI;
+	cout << fixed << setprecision(3) << atan_tmp << endl;
+
+	cout << endl;
+}
+
 // Процедура выхода из программы
 // Пункт 8.
 void exiting_the_program() {
@@ -148,6 +180,7 @@ void exiting_the_program() {
 
 // Процедура вывода возможных операций
 void menu() {
+	cout << "0. Теория." << endl;
 	cout << "1. Найти угол наклона." << endl;
 	cout << "2. Составить уравнение прямой по одной точке." << endl;
 	cout << "3. Составить уравнение прямой по двум точкам." << endl;
@@ -174,7 +207,7 @@ void choose_number_of_problem() {
 		theory();
 		break;
 	case(1):
-		search_for_the_angular_coefficient();
+		search_for_the_angular_coefficient(true);
 		break;
 	case(2):
 		drawing_up_the_equation_one_point();
@@ -183,6 +216,7 @@ void choose_number_of_problem() {
 		drawing_up_the_equation_two_point();
 		break;
 	case(4):
+		find_angle_between_straight_lines();
 		break;
 	case(5):
 		break;
