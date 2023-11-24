@@ -12,6 +12,8 @@ const float PI = acos(-1);
 
 using namespace std;
 
+// Вывод конпекта
+// Пункт 0
 void theory() {
 
 }
@@ -51,6 +53,8 @@ void search_for_the_angular_coefficient() {
 
 	cout << "\nТангенс угла наклона к оси Ox: ";
 	tan_tmp = k / tmp;
+
+	cout << fixed << setprecision(3) << k << " / " << tmp << endl;
 	cout << fixed << setprecision(3) << tan_tmp << endl;
 
 	cout << "Угол наклона к оси Ox: ";
@@ -83,13 +87,14 @@ void drawing_up_the_equation_one_point() {
 
 	cout << "Уравнение прямой: y = k * x - k * " << coordinates.first;
 	cout << " + " << coordinates.second << endl;
+
 	cout << endl;
 }
 
 void drawing_up_the_equation_two_point() {
 	/*
 		x - x1    y - y1
-		------- = ------- 
+		------- = -------
 		x2 - x1   y2 - y1
 
 		(x - x1)*(y2 - y1) = (x2 - x1)*(y - y1)
@@ -120,12 +125,17 @@ void drawing_up_the_equation_two_point() {
 
 	double delta_x = coordinates_second.first - coordinates_first.first;
 	double delta_y = coordinates_second.second - coordinates_first.second;
-	
+
 	double div_delta = delta_y / delta_x;
 	double tmp = (coordinates_first.second * delta_x - coordinates_first.first * delta_y) / delta_x;
 
-	cout << "Уравнение прямой: y = x * " << div_delta;
-	cout << " + (" << tmp << ")" << endl;
+	cout << fixed << setprecision(3) << "Уравнение прямой: y = x * " << div_delta
+		<< " + (" << tmp << ")" << endl;
+
+	cout << "Уравнение прямой: y = x * (" << delta_y << " / " << delta_x 
+		<< ") + (" << coordinates_first.second * delta_x << " - " <<
+		coordinates_first.first * delta_y  << ") / " << delta_x << endl;
+
 	cout << endl;
 }
 
