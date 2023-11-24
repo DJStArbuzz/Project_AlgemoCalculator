@@ -15,6 +15,35 @@ using namespace std;
 // Процедура вывода теории
 // Пункт 0
 void theory() {
+	cout << "Прямая на плоскости" << endl;
+	
+	cout << "Общее уравнение прямой: Ax + By + C = 0." << endl;
+	
+	cout << "С угловым коэффициентом уравнение прямой: y = kx + b, где k = tg(a), α –" <<
+		"угол наклона к оси Ox." << endl;
+	
+	cout << "Нормальное уравнение прямой: x*cos(a) + y*sin(a) − ρ = 0, где a – полярный" <<
+		"угол нормали, ρ – длина вектора нормали до прямой." << endl;
+
+	cout << "Отклонение точки от прямой δ = x0 cos α + y0 sin α − ρ. Расстояние от точки до" <<
+		"прямой равно модулю отклонения." << endl;
+	
+	cout << "Через точки M1 и M2 уравнение прямой, где M1 = (x1, y1), M2 = (x1, y1): " << endl;
+	cout << " x - x1      y - 1 " << endl;
+	cout << "-------  =  -------" << endl;
+	cout << "x2 - x1     y2 - y1" << endl;
+	
+	cout << "Если известны угловые коэффициенты двух прямых k1 и k2, то один из углов a между прямыми : " << endl;
+	cout << "         k2 - k1 " << endl;
+	cout << "tg(a) = ---------" << endl;
+	cout << "        1 + k1*k2 " << endl;
+
+	cout << "В отрезках уравнение прямой, где a и b – величины отрезков, которые отсекает прямая на координатных осях:" << endl;
+	cout << "x   y " << endl;
+	cout << "- + - = 1" << endl;
+	cout << "a   b" << endl;
+
+	cout << endl;
 
 }
 
@@ -69,7 +98,6 @@ double search_for_the_angular_coefficient(bool flag) {
 	}
 
 	cout << endl;
-
 }
 
 // Процедура составления уравнения прямой через одну некоторую точку
@@ -161,6 +189,8 @@ void find_angle_between_straight_lines() {
 
 	double tan_tmp, atan_tmp;
 	double k1 = search_for_the_angular_coefficient(false);
+	cout << endl;
+
 	double k2 = search_for_the_angular_coefficient(false);
 
 	cout << "\nУгол между прямыми: ";
@@ -170,6 +200,121 @@ void find_angle_between_straight_lines() {
 
 	cout << endl;
 }
+
+// Процедура изменения уравнения прямой из общего вида в нормальное.
+// Пункт 5
+void classic_to_normal() {
+	cout << "Введите уравнение вида: ";
+	cout << "y = kx + b" << endl;
+
+	double tmp, k, b;
+	cout << "Введите параметры y и x и отрезок, отсекаемый на оси Оу.\n" << endl;
+
+	cout << "Для y: ";
+	cin >> tmp;
+	
+	tmp *= -1;
+
+	cout << "Для x: ";
+	cin >> k;
+
+	cout << "b: ";
+	cin >> b;
+
+	cout << "Вы ввели: " << tmp << "y + (" << k << ")x + (" << b << ") = 0\n" << endl;
+
+	double del = sqrt(pow(tmp, 2) + pow(k, 2));
+
+	bool check = (((pow(tmp, 2) + pow(k, 2)) / pow(del, 2)) == 1);
+
+	if (check) {
+		cout << "Уравнение нормального вида: \n(";
+
+		cout << tmp << " / " << del << ")y + (" << k << " / " << del << ")x + (" << b << "/" << del << ") = 0" << endl;
+
+		if (b / del > 0){
+			tmp *= -1;
+			k *= -1;
+			cout << "(" << tmp << " / " << del << ")y + (" << k << " / " << del << ")x - (" << b << "/" << del << ") = 0" << endl;
+		}
+	}
+	else {
+		cout << "Уравнение невозможно изменить." << endl;
+	}
+	cout << endl;
+}
+
+// Процедура изменения уравнения прямой из нормального вида в общее.
+// Пункт 6
+void normal_to_classic() {
+	cout << "Введите уравнение вида: ";
+	cout << "x * cos(a) + y * sin(a) - p = 0" << endl;
+	cout << "a - полярный угол нормали, ρ – длина вектора нормали до прямой." << endl;
+
+	pair<double, double> cosA;
+	cout << "cos(a): ";
+	cin >> cosA.first;
+	cout << "/";
+	cin >> cosA.second;
+
+	pair<double, double> sinA;
+	cout << "sin(a): ";
+	cin >> sinA.first;
+	cout << "/";
+	cin >> sinA.second;
+	cout << endl;
+
+	double p;
+	cout << "p: ";
+	cin >> p;
+
+	if (sinA.second < 0) {
+		sinA.second *= -1;
+		sinA.first *= -1;
+	}
+
+	if (cosA.second < 0) {
+		cosA.second *= -1;
+		cosA.first *= -1;
+	}
+
+	if (sinA.second == 0 || cosA.second == 0) {
+		cout << "Невозможно решить." << endl;
+	}
+	else {
+		cout << "Вы ввели: ";
+		cout << "x * (" << cosA.first << "/" << cosA.second << ") + y * (" << sinA.first << "/" << sinA.second
+			<< ") - " << p << " = 0" << endl;
+
+		cout << "Общий вид уравнения прямой: ";
+		if (sinA.second == cosA.second) {
+			cout << "x * (" << cosA.first << ") + y * (" << sinA.first
+				<< ") - " << p * sinA.second << " = 0" << endl;
+		}
+		else {
+			double denominator_sin = sinA.second;
+			double denominator_cos = cosA.second;
+
+			sinA.first *= denominator_cos;
+			sinA.second *= denominator_cos;
+
+			cosA.first *= denominator_sin;
+			cosA.second *= denominator_sin;
+			
+			bool check = ((pow(cosA.first, 2) + pow(sinA.first, 2)) / pow(sinA.second, 2) == 1);
+			if (check) {
+				cout << "x * (" << cosA.first << ") + y * (" << sinA.first
+					<< ") - " << p * sinA.second << " = 0" << endl;
+			}
+			else {
+				cout << " невозможен." << endl;
+			}
+		}
+	}
+	cout << endl;
+	cout << endl;
+}
+
 
 // Процедура выхода из программы
 // Пункт 8.
@@ -185,8 +330,8 @@ void menu() {
 	cout << "2. Составить уравнение прямой по одной точке." << endl;
 	cout << "3. Составить уравнение прямой по двум точкам." << endl;
 	cout << "4. Найти угол между прямыми." << endl;
-	cout << "5. Переделать уравнение прямой в общем виде в нормальное." << endl;
-	cout << "6. Переделать уравнение прямой в нормальном виде в общем." << endl;
+	cout << "5. Переделать уравнение прямой из общего вида в нормальное." << endl;
+	cout << "6. Переделать уравнение прямой из нормального вида в общее." << endl;
 	cout << "7. Найти отклонение от прямой." << endl;
 	cout << "8. Выход из программы." << endl << endl;
 	cout << "Ваш выбор: ";
@@ -219,8 +364,10 @@ void choose_number_of_problem() {
 		find_angle_between_straight_lines();
 		break;
 	case(5):
+		classic_to_normal();
 		break;
 	case(6):
+		normal_to_classic();
 		break;
 	case(7):
 		break;
