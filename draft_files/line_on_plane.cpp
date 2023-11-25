@@ -16,23 +16,23 @@ using namespace std;
 // Пункт 0
 void theory() {
 	cout << "Прямая на плоскости" << endl;
-	
+
 	cout << "Общее уравнение прямой: Ax + By + C = 0." << endl;
-	
+
 	cout << "С угловым коэффициентом уравнение прямой: y = kx + b, где k = tg(a), α –" <<
 		"угол наклона к оси Ox." << endl;
-	
+
 	cout << "Нормальное уравнение прямой: x*cos(a) + y*sin(a) − ρ = 0, где a – полярный" <<
 		"угол нормали, ρ – длина вектора нормали до прямой." << endl;
 
 	cout << "Отклонение точки от прямой δ = x0 cos α + y0 sin α − ρ. Расстояние от точки до" <<
 		"прямой равно модулю отклонения." << endl;
-	
+
 	cout << "Через точки M1 и M2 уравнение прямой, где M1 = (x1, y1), M2 = (x1, y1): " << endl;
 	cout << " x - x1      y - 1 " << endl;
 	cout << "-------  =  -------" << endl;
 	cout << "x2 - x1     y2 - y1" << endl;
-	
+
 	cout << "Если известны угловые коэффициенты двух прямых k1 и k2, то один из углов a между прямыми : " << endl;
 	cout << "         k2 - k1 " << endl;
 	cout << "tg(a) = ---------" << endl;
@@ -170,9 +170,9 @@ void drawing_up_the_equation_two_point() {
 	cout << fixed << setprecision(3) << "Уравнение прямой: y = x * " << div_delta
 		<< " + (" << tmp << ")" << endl;
 
-	cout << "Уравнение прямой: y = x * (" << delta_y << " / " << delta_x 
+	cout << "Уравнение прямой: y = x * (" << delta_y << " / " << delta_x
 		<< ") + (" << coordinates_first.second * delta_x << " - " <<
-		coordinates_first.first * delta_y  << ") / " << delta_x << endl;
+		coordinates_first.first * delta_y << ") / " << delta_x << endl;
 
 	cout << endl;
 }
@@ -184,7 +184,7 @@ void find_angle_between_straight_lines() {
 		tg(a) = --------- , где k1 и k2 - угловые коэффициенты
 				1 + k1*k2
 		a - один из углов между прямыми
-			
+
 	*/
 
 	double tan_tmp, atan_tmp;
@@ -212,7 +212,7 @@ void classic_to_normal() {
 
 	cout << "Для y: ";
 	cin >> tmp;
-	
+
 	tmp *= -1;
 
 	cout << "Для x: ";
@@ -232,7 +232,7 @@ void classic_to_normal() {
 
 		cout << tmp << " / " << del << ")y + (" << k << " / " << del << ")x + (" << b << "/" << del << ") = 0" << endl;
 
-		if (b / del > 0){
+		if (b / del > 0) {
 			tmp *= -1;
 			k *= -1;
 			cout << "(" << tmp << " / " << del << ")y + (" << k << " / " << del << ")x - (" << b << "/" << del << ") = 0" << endl;
@@ -300,7 +300,7 @@ void normal_to_classic() {
 
 			cosA.first *= denominator_sin;
 			cosA.second *= denominator_sin;
-			
+
 			bool check = ((pow(cosA.first, 2) + pow(sinA.first, 2)) / pow(sinA.second, 2) == 1);
 			if (check) {
 				cout << "x * (" << cosA.first << ") + y * (" << sinA.first
@@ -315,9 +315,52 @@ void normal_to_classic() {
 	cout << endl;
 }
 
+// Процедура поиска отклонения
+// Пункт 7.
+void find_deviation() {
+	cout << "Введите уравнение вида: ";
+	cout << "x * cos(a) + y * sin(a) - p = 0" << endl;
+	cout << "a - полярный угол нормали, ρ – длина вектора нормали до прямой." << endl;
+
+	pair<double, double> cosA;
+	cout << "cos(a): ";
+	cin >> cosA.first;
+	cout << "/";
+	cin >> cosA.second;
+
+	pair<double, double> sinA;
+	cout << "sin(a): ";
+	cin >> sinA.first;
+	cout << "/";
+	cin >> sinA.second;
+	cout << endl;
+
+	double p;
+	cout << "p: ";
+	cin >> p;
+
+	pair <double, double> coordinates;
+	cout << "Введите координаты некоторой точки: ";
+	cin >> coordinates.first >> coordinates.second;
+
+	cout << "\nОтклонение графика: ";
+
+	double result = coordinates.first * cosA.first / cosA.second +
+		coordinates.second * sinA.first / sinA.second - p;
+
+	cout << result << endl;
+	cout << endl;
+}
+
+// Процедура изображения прямой
+// Пункт 8.
+void draw_linw() {
+	
+}
+
 
 // Процедура выхода из программы
-// Пункт 8.
+// Пункт 9.
 void exiting_the_program() {
 	cout << "Сеанс завершен." << endl;
 	exit(0);
@@ -370,12 +413,16 @@ void choose_number_of_problem() {
 		normal_to_classic();
 		break;
 	case(7):
+		find_deviation();
 		break;
 	case(8):
+		draw_line();
+		break;
+	case(9):
 		exiting_the_program();
 		break;
-
 	default:
+		exiting_the_program();
 		break;
 	}
 }
