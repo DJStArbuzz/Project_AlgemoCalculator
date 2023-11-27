@@ -16,6 +16,7 @@ using namespace std;
 
 const int W = 1000;
 const int H = 1000;
+const int CHAR_SIZE = 24;
 
 int o1 = -30;
 int o2 = 30;
@@ -501,36 +502,39 @@ void arbuz_ebet_diny(RenderWindow &window) {
 	}
 }
 
+void create_text(Text text, Font font, string textStr, int x, int y) {
+	text.setString(textStr);
+	text.setCharacterSize(CHAR_SIZE);
+	text.setPosition(x, y);
+	text.setFont(font);
+}
+
 void menu_graph() {
 	int anim = 0;
 	int x0 = W / 2;
 	int y0 = H / 2;
 	int menu_1 = 0;
 
+	Font font;
+	font.loadFromFile("ariblk.ttf");
+
 	RenderWindow window(VideoMode(W, H), "Verynchic");
 	CircleShape point(2.f);
 	point.setFillColor(Color::Blue);
 
-	Text text;
-	text.setString("Zhopa");
-	text.setCharacterSize(24);
-	text.setPosition(x0 - 40, y0 - 17);
+	Text text1, text2, text3;
+	create_text(text1, font, "Нарисовать график", x0 - 40, y0 - 17);
+	create_text(text2, font, "Разбор возможных заданий", x0 - 40, y0 + 60);
+	create_text(text3, font, "Нарисовать график", x0 - 40, y0 + 137);
 
-	Font font;
-	font.loadFromFile("ariblk.ttf");
-	text.setFont(font);
-
-	Text text2;
-	text2.setString("Zhopa");
-	text2.setCharacterSize(24);
-	text2.setPosition(x0 - 40, y0 + 60);
-	text2.setFont(font);
-
-	RectangleShape rectangle(Vector2f(120, 50));
-	rectangle.setPosition(x0 - 60, y0 - 25);
+	RectangleShape rectangle1(Vector2f(120, 50));
+	rectangle1.setPosition(x0 - 60, y0 - 25);
 
 	RectangleShape rectangle2(Vector2f(120, 50));
 	rectangle2.setPosition(x0 - 60, y0 + 55);
+
+	RectangleShape rectangle3(Vector2f(120, 50));
+	rectangle3.setPosition(x0 - 60, y0 + 135);
 
 	while (window.isOpen())
 	{
@@ -541,23 +545,31 @@ void menu_graph() {
 				window.close();
 		}
 
-		rectangle.setFillColor(Color::Green);
+		rectangle1.setFillColor(Color::Green);
 		rectangle2.setFillColor(Color::Green);
+		rectangle3.setFillColor(Color::Green);
 
 		window.clear(Color::White);
 
-		text.setFillColor(Color::Blue);
+		text1.setFillColor(Color::Blue);
 		text2.setFillColor(Color::Blue);
+		text3.setFillColor(Color::Blue);
 
-		window.draw(rectangle);
+		window.draw(rectangle1);
 		window.draw(rectangle2);
+		window.draw(rectangle3);
 
 		if (IntRect(x0 - 60, y0 - 25, x0 + 60, y0 + 25).contains(Mouse::getPosition(window))) {
-			text.setFillColor(Color::White); menu_1 = 1;
+			text1.setFillColor(Color::White); menu_1 = 1;
 		}
 
 		if (IntRect(x0 - 60, y0 + 55, x0 + 60, y0 + 105).contains(Mouse::getPosition(window))) {
 			text2.setFillColor(Color::White); menu_1 = 2;
+		}
+
+		if (IntRect(x0 - 60, y0 + 135, x0 + 60, y0 + 185).contains(Mouse::getPosition(window))) 
+		{
+			text3.setFillColor(Color::White); menu_1 = 3;
 		}
 
 		if (Mouse::isButtonPressed(Mouse::Left))
@@ -566,14 +578,21 @@ void menu_graph() {
 			{
 				bebr(anim, x0, y0, point, window);
 			}
-			if (menu_1 == 2)
+
+			else if (menu_1 == 2)
 			{
 				arbuz_ebet_diny(window);
 			}
+
+			else if (menu_1 == 3)
+			{
+				exit(0);
+			}
 		}
 
-		window.draw(text);
+		window.draw(text1);
 		window.draw(text2);
+		window.draw(text3);
 		window.display();
 	}
 }
