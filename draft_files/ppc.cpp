@@ -13,43 +13,6 @@ int sc = 20;
 double k = 1;
 double b = 0;
 
-void bebr_2(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
-
-	Texture t;
-	t.loadFromFile("C:/Plos.png");
-	Sprite pic(t);
-
-	while (window.isOpen())
-	{
-		Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::Closed)
-				window.close();
-		}
-
-		if (anim < mass)
-			anim += 100;
-		if (Keyboard::isKeyPressed(Keyboard::Escape)) return;
-		window.clear(Color::White);
-		window.draw(pic);
-		for (int i = 0; i < anim; i++) {
-			float x = o1 + i / c;
-			float y = k * -x + b;
-			float y3 = 1 / x;
-
-			float x1 = x0 + x * sc;
-			float x2 = x0 + x * sc;
-			float y1 = y0 - y * sc;
-			float y2 = y0 - y3 * sc;
-
-			point.setPosition(x1 - 1, y1 - 1);
-			window.draw(point);
-		}
-		window.display();
-	}
-}
-
 void bebr(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
 
 	Texture t;
@@ -72,13 +35,10 @@ void bebr(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
 		window.draw(pic);
 		for (int i = 0; i < anim; i++) {
 			float x = o1 + i / c;
-			float y = k * x + b;
-			float y3 = 1 / x;
+			float y = k * 0.5 * x + b;
 
 			float x1 = x0 + x * sc;
-			float x2 = x0 + x * sc;
 			float y1 = y0 - y * sc;
-			float y2 = y0 - y3 * sc;
 
 			point.setPosition(x1 - 1, y1 - 1);
 			window.draw(point);
@@ -88,32 +48,66 @@ void bebr(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
 	}
 }
 
-
-
-void arbuz_ebet_diny() {
-	sf::RectangleShape rectangle(sf::Vector2f(200, 75));
+void oper_with_masunya(RectangleShape &rectangle, int x, int y) {
 	rectangle.setFillColor(sf::Color::Green);
 	rectangle.setOutlineThickness(5);
 	rectangle.setOutlineColor(sf::Color::Blue);
-	rectangle.setPosition(sf::Vector2f(25, 25));
+	rectangle.setPosition(sf::Vector2f(x, y));
+}
 
-	sf::RectangleShape rectangle2(sf::Vector2f(200, 75));
-	rectangle2.setFillColor(sf::Color::Green);
-	rectangle2.setOutlineThickness(5);
-	rectangle2.setOutlineColor(sf::Color::Blue);
-	rectangle2.setPosition(sf::Vector2f(25, 125));
+void arbuz_ebet_diny(RenderWindow &window) {
+	window.clear(Color::White);
 
-	sf::RectangleShape rectangle3(sf::Vector2f(200, 75));
-	rectangle3.setFillColor(sf::Color::Green);
-	rectangle3.setOutlineThickness(5);
-	rectangle3.setOutlineColor(sf::Color::Blue);
-	rectangle3.setPosition(sf::Vector2f(25, 225));
+	int sizeX = 200, sizeY = 75;
+	int x1 = 25, x2 = 250;
+	int y = 25;
 
-	sf::RectangleShape rectangle4(sf::Vector2f(200, 75));
-	rectangle4.setFillColor(sf::Color::Green);
-	rectangle4.setOutlineThickness(5);
-	rectangle4.setOutlineColor(sf::Color::Blue);
-	rectangle4.setPosition(sf::Vector2f(25, 325));
+	RectangleShape rectangle1(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle2(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle3(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle4(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle5(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle6(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle7(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangle8(sf::Vector2f(sizeX, sizeY));
+	RectangleShape rectangleMenu(sf::Vector2f(425, 500));
+
+
+	oper_with_masunya(rectangle1, x1, y + 100 * 0);
+	oper_with_masunya(rectangle2, x1, y + 100 * 1);
+	oper_with_masunya(rectangle3, x1, y + 100 * 2);
+	oper_with_masunya(rectangle4, x1, y + 100 * 3);
+	oper_with_masunya(rectangle5, x2, y + 100 * 0);
+	oper_with_masunya(rectangle6, x2, y + 100 * 1);
+	oper_with_masunya(rectangle7, x2, y + 100 * 2);
+	oper_with_masunya(rectangle8, x2, y + 100 * 3);
+	oper_with_masunya(rectangleMenu, x1, y + 100 * 4);
+
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		window.clear();
+		window.draw(rectangle1);
+		window.draw(rectangle2);
+		window.draw(rectangle3);
+		window.draw(rectangle4);
+
+		window.draw(rectangle5);
+		window.draw(rectangle6);
+		window.draw(rectangle7);
+		window.draw(rectangle8);
+
+		window.draw(rectangleMenu);
+
+		window.display();
+	}
 }
 void menu(RenderWindow& window, int anim, CircleShape& point) {
 
@@ -174,7 +168,7 @@ int main()
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menu_1 == 1) { bebr(anim, x0, y0, point, window); }
-			if (menu_1 == 2) { arbuz_ebet_diny(); }
+			if (menu_1 == 2) { arbuz_ebet_diny(window); }
 		}
 		window.draw(text);
 		window.draw(text2);
