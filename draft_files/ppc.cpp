@@ -365,15 +365,8 @@ void find_deviation() {
 	cout << endl;
 }
 
-// Процедура изображения прямой
-// Пункт 8.
-void draw_linw() {
-
-}
-
-
 // Процедура выхода из программы
-// Пункт 9.
+// Пункт -1.
 void exiting_the_program() {
 	cout << "Сеанс завершен." << endl;
 	exit(0);
@@ -389,7 +382,6 @@ void menu() {
 	cout << "5. Переделать уравнение прямой из общего вида в нормальное." << endl;
 	cout << "6. Переделать уравнение прямой из нормального вида в общее." << endl;
 	cout << "7. Найти отклонение от прямой." << endl;
-	cout << "8. Выход из программы." << endl << endl;
 	cout << "Ваш выбор: ";
 }
 
@@ -417,7 +409,7 @@ void bebr(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
 			float x = o1 + i / c;
 			float y = k * 0.5 * x + b;
 
-			float x1 = x0 + x * sc;
+			float x1 = x0 + x * sc ;
 			float y1 = y0 - y * sc;
 
 			point.setPosition(x1 - 1, y1 - 1);
@@ -442,15 +434,23 @@ void arbuz_ebet_diny(RenderWindow &window) {
 	int x1 = 25, x2 = 250;
 	int y = 25;
 
-	RectangleShape rectangle1(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle2(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle3(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle4(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle5(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle6(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle7(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangle8(sf::Vector2f(sizeX, sizeY));
-	RectangleShape rectangleMenu(sf::Vector2f(425, 500));
+	Text text;
+	text.setString("Zhopa");
+	text.setCharacterSize(24);
+	text.setPosition(x1, 875);
+	text.setFillColor(Color::Blue);
+
+	RectangleShape rectangle1(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle2(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle3(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle4(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle5(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle6(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle7(Vector2f(sizeX, sizeY));
+	RectangleShape rectangle8(Vector2f(sizeX, sizeY));
+	
+	RectangleShape rectangleMenu(Vector2f(425, 400));
+	RectangleShape rectangleReturn(Vector2f(100, 100));
 
 
 	oper_with_masunya(rectangle1, x1, y + 100 * 0);
@@ -461,7 +461,9 @@ void arbuz_ebet_diny(RenderWindow &window) {
 	oper_with_masunya(rectangle6, x2, y + 100 * 1);
 	oper_with_masunya(rectangle7, x2, y + 100 * 2);
 	oper_with_masunya(rectangle8, x2, y + 100 * 3);
-	oper_with_masunya(rectangleMenu, x1, y + 100 * 4);
+
+	oper_with_masunya(rectangleMenu, x1, y + 110 * 4 - 10);
+	oper_with_masunya(rectangleReturn, x1, 875);
 
 
 	while (window.isOpen())
@@ -485,26 +487,35 @@ void arbuz_ebet_diny(RenderWindow &window) {
 		window.draw(rectangle8);
 
 		window.draw(rectangleMenu);
+		
+		window.draw(rectangleReturn);
+		window.draw(text);
 
 		window.display();
+
+		if (IntRect(25, 875, 125, 975).contains(Mouse::getPosition(window))) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				exit(0);
+			}
+		}
 	}
 }
-void menu(RenderWindow& window, int anim, CircleShape& point) {
 
-}
-
-int main()
-{
-	RenderWindow window(VideoMode(W, H), "Verynchic");
+void menu_graph() {
 	int anim = 0;
-	CircleShape point(2.f);
-	point.setFillColor(Color::Blue);
 	int x0 = W / 2;
 	int y0 = H / 2;
+	int menu_1 = 0;
+
+	RenderWindow window(VideoMode(W, H), "Verynchic");
+	CircleShape point(2.f);
+	point.setFillColor(Color::Blue);
+
 	Text text;
 	text.setString("Zhopa");
 	text.setCharacterSize(24);
 	text.setPosition(x0 - 40, y0 - 17);
+
 	Font font;
 	font.loadFromFile("ariblk.ttf");
 	text.setFont(font);
@@ -521,7 +532,6 @@ int main()
 	RectangleShape rectangle2(Vector2f(120, 50));
 	rectangle2.setPosition(x0 - 60, y0 + 55);
 
-	int menu_1 = 0;
 	while (window.isOpen())
 	{
 		Event event;
@@ -530,29 +540,48 @@ int main()
 			if (event.type == Event::Closed)
 				window.close();
 		}
+
 		rectangle.setFillColor(Color::Green);
 		rectangle2.setFillColor(Color::Green);
+
 		window.clear(Color::White);
+
 		text.setFillColor(Color::Blue);
 		text2.setFillColor(Color::Blue);
 
 		window.draw(rectangle);
 		window.draw(rectangle2);
+
 		if (IntRect(x0 - 60, y0 - 25, x0 + 60, y0 + 25).contains(Mouse::getPosition(window))) {
 			text.setFillColor(Color::White); menu_1 = 1;
 		}
+
 		if (IntRect(x0 - 60, y0 + 55, x0 + 60, y0 + 105).contains(Mouse::getPosition(window))) {
 			text2.setFillColor(Color::White); menu_1 = 2;
 		}
 
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (menu_1 == 1) { bebr(anim, x0, y0, point, window); }
-			if (menu_1 == 2) { arbuz_ebet_diny(window); }
+			if (menu_1 == 1)
+			{
+				bebr(anim, x0, y0, point, window);
+			}
+			if (menu_1 == 2)
+			{
+				arbuz_ebet_diny(window);
+			}
 		}
+
 		window.draw(text);
 		window.draw(text2);
 		window.display();
+	}
+}
+
+int main()
+{
+	while (true) {
+		menu_graph();
 	}
 	return 0;
 }
