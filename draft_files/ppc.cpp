@@ -386,7 +386,7 @@ void menu() {
 	cout << "Ваш выбор: ";
 }
 
-void bebr(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
+void create_graphs(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
 
 	Texture t;
 	t.loadFromFile("C:/Plos.png");
@@ -421,14 +421,14 @@ void bebr(int anim, int x0, int y0, CircleShape& point, RenderWindow& window) {
 	}
 }
 
-void oper_with_masunya(RectangleShape &rectangle, int x, int y) {
+void create_rectangle(RectangleShape &rectangle, int x, int y) {
 	rectangle.setFillColor(sf::Color::Green);
 	rectangle.setOutlineThickness(5);
 	rectangle.setOutlineColor(sf::Color::Blue);
 	rectangle.setPosition(sf::Vector2f(x, y));
 }
 
-void arbuz_ebet_diny(RenderWindow &window) {
+void menu_operatin(RenderWindow &window) {
 	window.clear(Color::White);
 
 	int sizeX = 200, sizeY = 75;
@@ -436,7 +436,7 @@ void arbuz_ebet_diny(RenderWindow &window) {
 	int y = 25;
 
 	Text text;
-	text.setString("Zhopa");
+	text.setString("Вернуться в меню");
 	text.setCharacterSize(24);
 	text.setPosition(x1, 875);
 	text.setFillColor(Color::Blue);
@@ -454,17 +454,17 @@ void arbuz_ebet_diny(RenderWindow &window) {
 	RectangleShape rectangleReturn(Vector2f(100, 100));
 
 
-	oper_with_masunya(rectangle1, x1, y + 100 * 0);
-	oper_with_masunya(rectangle2, x1, y + 100 * 1);
-	oper_with_masunya(rectangle3, x1, y + 100 * 2);
-	oper_with_masunya(rectangle4, x1, y + 100 * 3);
-	oper_with_masunya(rectangle5, x2, y + 100 * 0);
-	oper_with_masunya(rectangle6, x2, y + 100 * 1);
-	oper_with_masunya(rectangle7, x2, y + 100 * 2);
-	oper_with_masunya(rectangle8, x2, y + 100 * 3);
+	create_rectangle(rectangle1, x1, y + 100 * 0);
+	create_rectangle(rectangle2, x1, y + 100 * 1);
+	create_rectangle(rectangle3, x1, y + 100 * 2);
+	create_rectangle(rectangle4, x1, y + 100 * 3);
+	create_rectangle(rectangle5, x2, y + 100 * 0);
+	create_rectangle(rectangle6, x2, y + 100 * 1);
+	create_rectangle(rectangle7, x2, y + 100 * 2);
+	create_rectangle(rectangle8, x2, y + 100 * 3);
 
-	oper_with_masunya(rectangleMenu, x1, y + 110 * 4 - 10);
-	oper_with_masunya(rectangleReturn, x1, 875);
+	create_rectangle(rectangleMenu, x1, y + 110 * 4 - 10);
+	create_rectangle(rectangleReturn, x1, 875);
 
 
 	while (window.isOpen())
@@ -576,12 +576,12 @@ void menu_graph() {
 		{
 			if (menu_1 == 1)
 			{
-				bebr(anim, x0, y0, point, window);
+				create_graphs(anim, x0, y0, point, window);
 			}
 
 			else if (menu_1 == 2)
 			{
-				arbuz_ebet_diny(window);
+				menu_operatin(window);
 			}
 
 			else if (menu_1 == 3)
