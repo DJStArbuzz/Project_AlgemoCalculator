@@ -26,38 +26,45 @@ int sc = 20;
 double k = 1;
 double b = 0;
 
+// Операции
+const string oper0 = "0. Теория.";
+const string oper1 = "1. Найти угол\n наклона.";
+const string oper2 = "2. Составить \nуравнение \nпрямой по одной точке.";
+const string oper3 = "3. Составить \nуравнение \nпрямой по двум точкам.";
+const string oper4 = "4. Найти угол \nмежду прямыми.";
+const string oper5 = "5. Переделать \nуравнение прямой \nиз общего вида \nв нормальное.";
+const string oper6 = "6. Переделать \nуравнение прямой \nиз нормального \nвида в общее.";
+const string oper7 = "7. Найти отклонение\n от прямой.";
+
+
 // Процедура вывода теории
 // Пункт 0
-void theory() {
-	cout << "Прямая на плоскости" << endl;
+string theory() {
+	string res = "Прямая на плоскости \nОбщее уравнение прямой: Ax + By + C = 0.";
 
-	cout << "Общее уравнение прямой: Ax + By + C = 0." << endl;
+	res += "\nС угловым коэффициентом уравнение прямой: y = kx + b, где k = tg(a), α –"
+		"угол наклона к оси Ox.";
 
-	cout << "С угловым коэффициентом уравнение прямой: y = kx + b, где k = tg(a), α –" <<
-		"угол наклона к оси Ox." << endl;
+	res += "\nНормальное уравнение прямой: x*cos(a) + y*sin(a) − ρ = 0, где a – полярный угол нормали, ρ – длина вектора нормали до прямой.";
 
-	cout << "Нормальное уравнение прямой: x*cos(a) + y*sin(a) − ρ = 0, где a – полярный" <<
-		"угол нормали, ρ – длина вектора нормали до прямой." << endl;
+	res += "\nОтклонение точки от прямой δ = x0 cos α + y0 sin α − ρ. Расстояние от точки до прямой равно модулю отклонения.";
 
-	cout << "Отклонение точки от прямой δ = x0 cos α + y0 sin α − ρ. Расстояние от точки до" <<
-		"прямой равно модулю отклонения." << endl;
+	res += "\nЧерез точки M1 и M2 уравнение прямой, где M1 = (x1, y1), M2 = (x1, y1): ";
+	res += "\n x - x1      y - 1 ";
+	res += "\n-------  =  -------";
+	res += "\nx2 - x1     y2 - y1";
 
-	cout << "Через точки M1 и M2 уравнение прямой, где M1 = (x1, y1), M2 = (x1, y1): " << endl;
-	cout << " x - x1      y - 1 " << endl;
-	cout << "-------  =  -------" << endl;
-	cout << "x2 - x1     y2 - y1" << endl;
+	res += "\nЕсли известны угловые коэффициенты двух прямых k1 и k2, то один из углов a между прямыми : ";
+	res += "\n         k2 - k1 ";
+	res += "\ntg(a) = ---------";
+	res += "\n        1 + k1*k2 ";
 
-	cout << "Если известны угловые коэффициенты двух прямых k1 и k2, то один из углов a между прямыми : " << endl;
-	cout << "         k2 - k1 " << endl;
-	cout << "tg(a) = ---------" << endl;
-	cout << "        1 + k1*k2 " << endl;
+	res += "\nВ отрезках уравнение прямой, где a и b – величины отрезков, которые отсекает прямая на координатных осях:";
+	res += "\nx   y ";
+	res += "\n- + - = 1";
+	res += "\na   b";
 
-	cout << "В отрезках уравнение прямой, где a и b – величины отрезков, которые отсекает прямая на координатных осях:" << endl;
-	cout << "x   y " << endl;
-	cout << "- + - = 1" << endl;
-	cout << "a   b" << endl;
-
-	cout << endl;
+	return res;
 
 }
 
@@ -410,7 +417,7 @@ void create_graphs(int anim, int x0, int y0, CircleShape& point, RenderWindow& w
 			float x = o1 + i / c;
 			float y = k * 0.5 * x + b;
 
-			float x1 = x0 + x * sc ;
+			float x1 = x0 + x * sc;
 			float y1 = y0 - y * sc;
 
 			point.setPosition(x1 - 1, y1 - 1);
@@ -421,26 +428,46 @@ void create_graphs(int anim, int x0, int y0, CircleShape& point, RenderWindow& w
 	}
 }
 
-void create_rectangle(RectangleShape &rectangle, int x, int y) {
+void create_rectangle(RectangleShape& rectangle, int x, int y) {
 	rectangle.setFillColor(sf::Color::Green);
 	rectangle.setOutlineThickness(5);
 	rectangle.setOutlineColor(sf::Color::Blue);
 	rectangle.setPosition(sf::Vector2f(x, y));
 }
 
-void menu_operatin(RenderWindow &window) {
+void create_text_rectangle(RectangleShape& rectangle, int x, int y) {
+	rectangle.setFillColor(sf::Color::Green);
+	rectangle.setOutlineThickness(5);
+	rectangle.setOutlineColor(sf::Color::Blue);
+	rectangle.setPosition(sf::Vector2f(x, y));
+}
+
+void menu_operatin(RenderWindow& window) {
 	window.clear(Color::White);
 
 	int sizeX = 200, sizeY = 75;
 	int x1 = 25, x2 = 250;
 	int y = 25;
 
+
+	Font font;
+	font.loadFromFile("CyrilicOld.TTF");
+
+
 	Text text;
-	text.setString("Вернуться в меню");
-	text.setCharacterSize(24);
+	text.setFont(font);
+	text.setString("Вернуться \nв меню");
+	text.setCharacterSize(20);
 	text.setPosition(x1, 875);
 	text.setFillColor(Color::Blue);
-
+	
+	Text textRes;
+	textRes.setFont(font);
+	textRes.setCharacterSize(20);
+	textRes.setPosition(500, 25);
+	textRes.setFillColor(Color::White);
+	
+	RectangleShape rectangle0(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle1(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle2(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle3(Vector2f(sizeX, sizeY));
@@ -448,49 +475,201 @@ void menu_operatin(RenderWindow &window) {
 	RectangleShape rectangle5(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle6(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle7(Vector2f(sizeX, sizeY));
-	RectangleShape rectangle8(Vector2f(sizeX, sizeY));
-	
+
 	RectangleShape rectangleMenu(Vector2f(425, 400));
+	RectangleShape rectangleRes(Vector2f(450, 800));
 	RectangleShape rectangleReturn(Vector2f(100, 100));
 
-
-	create_rectangle(rectangle1, x1, y + 100 * 0);
-	create_rectangle(rectangle2, x1, y + 100 * 1);
-	create_rectangle(rectangle3, x1, y + 100 * 2);
-	create_rectangle(rectangle4, x1, y + 100 * 3);
-	create_rectangle(rectangle5, x2, y + 100 * 0);
-	create_rectangle(rectangle6, x2, y + 100 * 1);
-	create_rectangle(rectangle7, x2, y + 100 * 2);
-	create_rectangle(rectangle8, x2, y + 100 * 3);
+	create_rectangle(rectangle0, x1, y + 100 * 0);
+	create_rectangle(rectangle1, x1, y + 100 * 1);
+	create_rectangle(rectangle2, x1, y + 100 * 2);
+	create_rectangle(rectangle3, x1, y + 100 * 3);
+	create_rectangle(rectangle4, x2, y + 100 * 0);
+	create_rectangle(rectangle5, x2, y + 100 * 1);
+	create_rectangle(rectangle6, x2, y + 100 * 2);
+	create_rectangle(rectangle7, x2, y + 100 * 3);
 
 	create_rectangle(rectangleMenu, x1, y + 110 * 4 - 10);
 	create_rectangle(rectangleReturn, x1, 875);
+	create_rectangle(rectangleRes, 500, 25);
 
+	Text text0;
+	text0.setFont(font);
+	text0.setString(oper0);
+	text0.setCharacterSize(20);
+	text0.setPosition(x1, y + 100 * 0);
+	text0.setFillColor(Color::Blue);
+
+	Text text1;
+	text1.setFont(font);
+	text1.setString(oper1);
+	text1.setCharacterSize(20);
+	text1.setPosition(x1, y + 100 * 1);
+	text1.setFillColor(Color::Blue);
+
+	Text text2;
+	text2.setFont(font);
+	text2.setString(oper2);
+	text2.setCharacterSize(20);
+	text2.setPosition(x1, y + 100 * 2);
+	text2.setFillColor(Color::Blue);
+
+	Text text3;
+	text3.setFont(font);
+	text3.setString(oper3);
+	text3.setCharacterSize(20);
+	text3.setPosition(x1, y + 100 * 3);
+	text3.setFillColor(Color::Blue);
+
+	Text text4;
+	text4.setFont(font);
+	text4.setString(oper4);
+	text4.setCharacterSize(20);
+	text4.setPosition(x2, y + 100 * 0);
+	text4.setFillColor(Color::Blue);
+
+	Text text5;
+	text5.setFont(font);
+	text5.setString(oper5);
+	text5.setCharacterSize(20);
+	text5.setPosition(x2, y + 100 * 1);
+	text5.setFillColor(Color::Blue);
+
+	Text text6;
+	text6.setFont(font);
+	text6.setString(oper6);
+	text6.setCharacterSize(20);
+	text6.setPosition(x2, y + 100 * 2);
+	text6.setFillColor(Color::Blue);
+
+	Text text7;
+	text7.setFont(font);
+	text7.setString(oper7);
+	text7.setCharacterSize(20);
+	text7.setPosition(x2, y + 100 * 3);
+	text7.setFillColor(Color::Blue);
+
+	int menu_1 = 0;
 
 	while (window.isOpen())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
+
+		if (IntRect(x1, y + 100 * 0, 200, 100).contains(Mouse::getPosition(window))) {
+			text0.setFillColor(Color::White); menu_1 = 0;
+		}
+
+		if (IntRect(x1, y + 100 * 1, 200, 100).contains(Mouse::getPosition(window)))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
+			text1.setFillColor(Color::White); menu_1 = 1;
+		}
+
+		if (IntRect(x1, y + 100 * 2, 200, 100).contains(Mouse::getPosition(window)))
+		{
+			text2.setFillColor(Color::White); menu_1 = 2;
+		}
+
+		if (IntRect(x1, y + 100 * 3, 200, 100).contains(Mouse::getPosition(window))) {
+			text3.setFillColor(Color::White); menu_1 = 3;
+		}
+
+		if (IntRect(x2, y + 100 * 0, 200, 100).contains(Mouse::getPosition(window))) {
+			text4.setFillColor(Color::White); menu_1 = 4;
+		}
+
+		if (IntRect(x2, y + 100 * 1, 200, 100).contains(Mouse::getPosition(window)))
+		{
+			text5.setFillColor(Color::White); menu_1 = 5;
+		}
+
+		if (IntRect(x2, y + 100 * 2, 200, 100).contains(Mouse::getPosition(window))) {
+			text6.setFillColor(Color::White); menu_1 = 6;
+		}
+
+		if (IntRect(x2, y + 100 * 3, 200, 100).contains(Mouse::getPosition(window))) {
+			text7.setFillColor(Color::White); menu_1 = 7;
 		}
 
 		window.clear();
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+			if (menu_1 == 0)
+			{
+				string res;
+				
+				res = theory();
+
+				textRes.setString(res);
+			}
+
+			if (menu_1 == 1)
+			{
+				textRes.setString("Веsasa");
+			}
+
+			if (menu_1 == 2)
+			{
+				window.draw(rectangleRes);
+			}
+
+			if (menu_1 == 3)
+			{
+				window.draw(rectangleRes);
+			}
+
+			if (menu_1 == 4)
+			{
+				window.draw(rectangleRes);
+			}
+
+			if (menu_1 == 5)
+			{
+				window.draw(rectangleRes);
+			}
+
+			if (menu_1 == 6)
+			{
+				window.draw(rectangleRes);
+			}
+
+			if (menu_1 == 7)
+			{
+				window.draw(rectangleRes);
+			}
+		}
+		window.clear();
+
+		window.draw(rectangle0);
 		window.draw(rectangle1);
 		window.draw(rectangle2);
 		window.draw(rectangle3);
 		window.draw(rectangle4);
-
 		window.draw(rectangle5);
 		window.draw(rectangle6);
 		window.draw(rectangle7);
-		window.draw(rectangle8);
+
+		window.draw(text0);
+		window.draw(text1);
+		window.draw(text2);
+		window.draw(text3);
+		window.draw(text4);
+		window.draw(text5);
+		window.draw(text6);
+		window.draw(text7);
 
 		window.draw(rectangleMenu);
-		
 		window.draw(rectangleReturn);
+		window.draw(rectangleRes);
+		window.draw(textRes);
 		window.draw(text);
+
+		text0.setFillColor(Color::Blue);
+		text1.setFillColor(Color::Blue);
+		text2.setFillColor(Color::Blue);
+		text3.setFillColor(Color::Blue);
+		text4.setFillColor(Color::Blue);
+		text5.setFillColor(Color::Blue);
+		text6.setFillColor(Color::Blue);
+		text7.setFillColor(Color::Blue);
 
 		window.display();
 
@@ -500,41 +679,58 @@ void menu_operatin(RenderWindow &window) {
 			}
 		}
 	}
+
 }
 
-void create_text(Text text, Font font, string textStr, int x, int y) {
-	text.setString(textStr);
-	text.setCharacterSize(CHAR_SIZE);
-	text.setPosition(x, y);
-	text.setFont(font);
-}
 
 void menu_graph() {
+	Texture t;
+	t.loadFromFile("Graph.jpg");
+	Sprite pic(t);
+
 	int anim = 0;
 	int x0 = W / 2;
 	int y0 = H / 2;
 	int menu_1 = 0;
 
 	Font font;
-	font.loadFromFile("ariblk.ttf");
+	font.loadFromFile("CyrilicOld.TTF");
 
 	RenderWindow window(VideoMode(W, H), "Verynchic");
+
 	CircleShape point(2.f);
 	point.setFillColor(Color::Blue);
 
+	sf::Vector2f centerPos = sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2);
+
 	Text text1, text2, text3;
-	create_text(text1, font, "Нарисовать график", x0 - 40, y0 - 17);
-	create_text(text2, font, "Разбор возможных заданий", x0 - 40, y0 + 60);
-	create_text(text3, font, "Нарисовать график", x0 - 40, y0 + 137);
 
-	RectangleShape rectangle1(Vector2f(120, 50));
-	rectangle1.setPosition(x0 - 60, y0 - 25);
+	text1.setFont(font);
+	text1.setString("Нарисовать график");
+	text1.setCharacterSize(CHAR_SIZE);
+	text1.setPosition(centerPos.x - text1.getGlobalBounds().width / 2, centerPos.y - text1.getGlobalBounds().height / 2);
+	text1.setFillColor(Color::White);
 
-	RectangleShape rectangle2(Vector2f(120, 50));
-	rectangle2.setPosition(x0 - 60, y0 + 55);
+	text2.setFont(font);
+	text2.setString("Разбор возможных заданий");
+	text2.setCharacterSize(CHAR_SIZE);
+	text2.setPosition(centerPos.x - text2.getGlobalBounds().width / 2, centerPos.y - text2.getGlobalBounds().height / 2 + 75);
+	text2.setFillColor(Color::White);
 
-	RectangleShape rectangle3(Vector2f(120, 50));
-	rectangle3.setPosition(x0 - 60, y0 + 135);
+	text3.setFont(font);
+	text3.setString("Завершение работы");
+	text3.setCharacterSize(CHAR_SIZE);
+	text3.setPosition(centerPos.x - text3.getGlobalBounds().width / 2, centerPos.y - text3.getGlobalBounds().height / 2 + 150);
+	text3.setFillColor(Color::White);
+
+	RectangleShape rectangle1(Vector2f(300, 50));
+	rectangle1.setPosition(centerPos.x - rectangle1.getGlobalBounds().width / 2, centerPos.y - rectangle1.getGlobalBounds().height / 2);
+
+	RectangleShape rectangle2(Vector2f(300, 50));
+	rectangle2.setPosition(centerPos.x - rectangle2.getGlobalBounds().width / 2, centerPos.y - rectangle2.getGlobalBounds().height / 2 + 75);
+
+	RectangleShape rectangle3(Vector2f(300, 50));
+	rectangle3.setPosition(centerPos.x - rectangle3.getGlobalBounds().width / 2, centerPos.y - rectangle3.getGlobalBounds().height / 2 + 150);
 
 	while (window.isOpen())
 	{
@@ -550,6 +746,7 @@ void menu_graph() {
 		rectangle3.setFillColor(Color::Green);
 
 		window.clear(Color::White);
+		window.draw(pic);
 
 		text1.setFillColor(Color::Blue);
 		text2.setFillColor(Color::Blue);
@@ -559,15 +756,15 @@ void menu_graph() {
 		window.draw(rectangle2);
 		window.draw(rectangle3);
 
-		if (IntRect(x0 - 60, y0 - 25, x0 + 60, y0 + 25).contains(Mouse::getPosition(window))) {
+		if (IntRect(text1.getPosition().x, text1.getPosition().y, text1.getLocalBounds().width, text1.getLocalBounds().height).contains(Mouse::getPosition(window))) {
 			text1.setFillColor(Color::White); menu_1 = 1;
 		}
 
-		if (IntRect(x0 - 60, y0 + 55, x0 + 60, y0 + 105).contains(Mouse::getPosition(window))) {
+		if (IntRect(text2.getPosition().x, text2.getPosition().y, text2.getLocalBounds().width, text2.getLocalBounds().height).contains(Mouse::getPosition(window))) {
 			text2.setFillColor(Color::White); menu_1 = 2;
 		}
 
-		if (IntRect(x0 - 60, y0 + 135, x0 + 60, y0 + 185).contains(Mouse::getPosition(window))) 
+		if (IntRect(text3.getPosition().x, text3.getPosition().y, text3.getLocalBounds().width, text3.getLocalBounds().height).contains(Mouse::getPosition(window)))
 		{
 			text3.setFillColor(Color::White); menu_1 = 3;
 		}
