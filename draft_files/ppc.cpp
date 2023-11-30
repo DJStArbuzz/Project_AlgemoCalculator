@@ -460,13 +460,20 @@ void menu_operatin(RenderWindow& window) {
 	text.setCharacterSize(20);
 	text.setPosition(x1, 875);
 	text.setFillColor(Color::Blue);
-	
+
 	Text textRes;
 	textRes.setFont(font);
 	textRes.setCharacterSize(20);
 	textRes.setPosition(500, 25);
 	textRes.setFillColor(Color::White);
-	
+
+	Text textMenu;
+	textMenu.setString("Выберите вариант задания.");
+	textMenu.setFont(font);
+	textMenu.setCharacterSize(20);
+	textMenu.setPosition(500, 25);
+	textMenu.setFillColor(Color::White);
+
 	RectangleShape rectangle0(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle1(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle2(Vector2f(sizeX, sizeY));
@@ -476,7 +483,7 @@ void menu_operatin(RenderWindow& window) {
 	RectangleShape rectangle6(Vector2f(sizeX, sizeY));
 	RectangleShape rectangle7(Vector2f(sizeX, sizeY));
 
-	RectangleShape rectangleMenu(Vector2f(425, 400));
+	RectangleShape rectangleMenu(Vector2f(425, 200));
 	RectangleShape rectangleRes(Vector2f(450, 800));
 	RectangleShape rectangleReturn(Vector2f(100, 100));
 
@@ -595,7 +602,7 @@ void menu_operatin(RenderWindow& window) {
 			if (menu_1 == 0)
 			{
 				string res;
-				
+
 				res = theory();
 
 				textRes.setString(res);
@@ -661,6 +668,7 @@ void menu_operatin(RenderWindow& window) {
 		window.draw(rectangleRes);
 		window.draw(textRes);
 		window.draw(text);
+		window.draw(textMenu);
 
 		text0.setFillColor(Color::Blue);
 		text1.setFillColor(Color::Blue);
